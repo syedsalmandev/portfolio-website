@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Syed Salman Ali — Portfolio
 
-## Getting Started
+Personal portfolio for **Syed Salman Ali, CMS & Full Stack Developer** (Karachi, Pakistan).
 
-First, run the development server:
+Built with Next.js (App Router), TypeScript, Tailwind CSS v4 and Motion. Fully static — no database or backend.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- **Next.js 16** with the App Router, static generation for every route
+- **TypeScript** throughout
+- **Tailwind CSS 4** with a small design-token layer in `src/app/globals.css`
+- **Motion** (`motion/react`) for hero reveals, scroll-in animations and the hero collage parallax
+- `next/image` with static imports (AVIF/WebP, blur placeholders, lazy loading)
+- File-based metadata: favicon (`icon.tsx`), Apple icon, Open Graph image, `sitemap.xml`, `robots.txt`
+
+## Structure
+
+```
+src/
+  app/                 routes, layout, metadata, 404
+    work/[slug]/       case-study pages (generateStaticParams)
+  components/
+    layout/            Header (sticky, scroll-aware, mobile overlay), Footer, Monogram
+    home/              Hero, HeroCollage, Stats, SelectedWork, Expertise, About, Experience (+ Process), Contact
+    work/              CaseStudy, ArchitectureDiagram, MarketplaceMock (sanitized illustration)
+    ui/                Button, Tag, SectionHeading, Reveal/Stagger/TextReveal, ScreenImage/PhoneImage
+  data/
+    site.ts            name, contact details, navigation, stats
+    projects.ts        all project + case-study content
+    profile.ts         expertise, about, education, experience, process
+  assets/projects/     project screenshots (static imports)
+public/cv/             downloadable CV (PDF)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+All copy lives in `src/data/*` — edit those files to update projects, experience or contact details without touching components.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Case studies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Each entry in `src/data/projects.ts` drives its own page at `/work/<slug>`. Optional fields hide their sections automatically:
 
-## Learn More
+- `mobileScreens` → "Mobile Screens" section
+- `videoUrl` → "Video" section (hidden when absent)
+- `callout` → emphasised principle block (used for "Built for Client Independence")
+- `architecture` → architecture section + data-flow diagram (used for the confidential marketplace)
+- `confidential` / `confidentialNote` → confidentiality badge; no screenshots are rendered, a sanitized UI illustration is shown instead
 
-To learn more about Next.js, take a look at the following resources:
+## Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-## Deploy on Vercel
+## Deployment (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push the repository to GitHub/GitLab/Bitbucket.
+2. Import the project in Vercel — the Next.js preset needs no extra configuration.
+3. Set the environment variable `NEXT_PUBLIC_SITE_URL` to the production URL (e.g. `https://syedsalmanali.com`) so canonical links, Open Graph metadata and the sitemap use the right domain.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or from the CLI:
+
+```bash
+npx vercel login
+npx vercel --prod
+```

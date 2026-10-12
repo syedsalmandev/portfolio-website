@@ -35,8 +35,8 @@ export function Contact() {
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-paper/70 sm:text-lg">
                 I&apos;m open to professional opportunities and selected web
-                development projects involving ecommerce, CMS platforms and
-                custom web applications.
+                development projects involving full stack web applications,
+                APIs, payment integrations and ecommerce/CMS platforms.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -83,6 +83,32 @@ export function Contact() {
                       className="link-underline text-base text-paper"
                     >
                       {site.phone}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="eyebrow text-paper/50">LinkedIn</dt>
+                  <dd className="mt-1">
+                    <a
+                      href={site.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline break-all text-base text-paper"
+                    >
+                      {site.linkedinLabel}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="eyebrow text-paper/50">GitHub</dt>
+                  <dd className="mt-1">
+                    <a
+                      href={site.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline break-all text-base text-paper"
+                    >
+                      {site.githubLabel}
                     </a>
                   </dd>
                 </div>

@@ -16,11 +16,11 @@ export function Expertise() {
             eyebrow="Expertise"
             title={
               <span id="expertise-heading">
-                Commerce, CMS and{" "}
+                Full stack{" "}
                 <span className="serif-accent">application</span> engineering.
               </span>
             }
-            description="From Shopify and WordPress storefronts to React and Next.js applications, with the integration and workflow experience to ship and maintain them."
+            description="From React and Next.js frontends to NestJS and PostgreSQL backends, payment integrations and custom WordPress, WooCommerce and Shopify builds — with the workflow experience to ship and maintain them."
           />
         </div>
 

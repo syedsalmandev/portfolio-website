@@ -39,8 +39,11 @@ export const metadata: Metadata = {
   creator: site.name,
   keywords: [
     "Syed Salman Ali",
-    "CMS Developer",
     "Full Stack Developer",
+    "Next.js Developer",
+    "NestJS",
+    "PostgreSQL",
+    "Payment Integrations",
     "Shopify Developer",
     "WordPress Developer",
     "WooCommerce",

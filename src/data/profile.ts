@@ -1,74 +1,83 @@
 export const expertise = [
   {
-    title: "Commerce & CMS",
-    items: [
-      "Shopify",
-      "Liquid",
-      "WordPress",
-      "WooCommerce",
-      "Elementor",
-      "ACF",
-      "Custom Post Types",
-      "LearnDash",
-      "Custom WordPress Functionality",
-      "Payment Integrations",
-    ],
+    title: "Languages",
+    items: ["JavaScript (ES6+)", "TypeScript", "PHP", "SQL", "HTML5", "CSS3"],
   },
   {
     title: "Frontend",
     items: [
       "React",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
+      "Next.js (App Router)",
+      "Redux Toolkit",
+      "Zustand",
       "Tailwind CSS",
-      "HTML",
-      "CSS",
       "Responsive UI",
+      "Component-Based Architecture",
     ],
   },
   {
-    title: "Backend & Application",
+    title: "Backend",
     items: [
       "Node.js",
-      "Next.js API Routes",
-      "REST APIs",
       "NestJS",
-      "Express / Fastify",
-      "API Integration",
+      "Next.js API Routes",
+      "RESTful APIs",
+      "Zod Validation",
+      "Authentication Flows",
     ],
   },
   {
-    title: "Data",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Prisma"],
+    title: "Databases & ORM",
+    items: ["PostgreSQL", "MySQL", "Prisma ORM"],
   },
   {
-    title: "Workflow",
+    title: "Payments & Integrations",
+    items: [
+      "Fiserv Commerce Hub",
+      "CardPointe",
+      "WooCommerce Payment Gateways",
+      "HMAC-SHA256 Signing",
+      "Third-Party APIs",
+    ],
+  },
+  {
+    title: "CMS & Ecommerce",
+    items: [
+      "WordPress (Custom Plugins & Themes)",
+      "WooCommerce",
+      "Shopify (Liquid)",
+      "ACF",
+      "LearnDash",
+      "Elementor",
+    ],
+  },
+  {
+    title: "Tools & Practices",
     items: [
       "Git",
       "GitHub",
-      "Figma",
+      "Code Review",
       "Postman",
-      "QA",
+      "Vercel",
+      "Figma",
+      "Modular / Feature-Based Architecture",
       "Debugging",
-      "Deployment",
-      "AI-Assisted Development",
     ],
   },
 ] as const;
 
 export const about = {
   paragraphs: [
-    "I'm a CMS & Full Stack Developer based in Karachi, Pakistan with 3+ years of professional web development experience.",
-    "My work spans WordPress, WooCommerce, Shopify and modern application development using React, Next.js and TypeScript.",
-    "I've worked across ecommerce, corporate websites, custom CMS functionality and application interfaces, with responsibilities extending into requirements, integrations, debugging, QA, deployment and ongoing maintenance.",
-    "My focus is building maintainable digital products that look polished, perform reliably and remain practical for the teams managing them after launch.",
+    "I'm a Full Stack Developer based in Karachi, Pakistan with 3+ years of experience building production web applications and 50+ delivered web projects.",
+    "I'm currently building a premium domain marketplace with Next.js, React, TypeScript and PostgreSQL/Prisma, and engineering custom payment and LMS systems — including a Fiserv Commerce Hub integration with HMAC-SHA256 request signing.",
+    "My strengths are modular frontend architecture, REST API development, third-party and payment integrations, and shipping client-facing products end to end — backed by deep WordPress, WooCommerce and Shopify experience.",
+    "Alongside client work I'm pursuing a BS in Computer Engineering, with a focus on building maintainable products that perform reliably and stay practical for the teams running them.",
   ],
   education: [
     {
       title: "BS Computer Engineering",
-      org: "Sir Syed University of Engineering & Technology (SSUET), Karachi",
-      period: "2024 – 2028",
+      org: "Sir Syed University of Engineering & Technology (SSUET), Karachi · Coursework: Data Structures & Algorithms",
+      period: "2024 – 2028 (Expected)",
     },
     {
       title: "The Complete JavaScript Course",
@@ -77,12 +86,7 @@ export const about = {
     },
     {
       title: "Web & Mobile App Development",
-      org: "Jawan Pakistan",
-      period: "2023",
-    },
-    {
-      title: "Web & Mobile App Development",
-      org: "Usman Institute of Technology (UIT)",
+      org: "Jawan Pakistan & Usman Institute of Technology (UIT)",
       period: "2022 – 2023",
     },
   ],
@@ -99,51 +103,52 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    role: "CMS & Full Stack Developer",
-    company: "BetaGen Technologies",
+    role: "Full Stack & CMS Developer",
+    company: "BetaGen Technologies, Karachi",
     period: "Jul 2026 – Present",
     current: true,
     summary:
-      "Building and maintaining web solutions across Next.js/React applications and WordPress/CMS platforms with a focus on production-ready, responsive implementation.",
+      "Building a premium domain marketplace (discover, buy, lease and manage domains) with Next.js 14 App Router, React, TypeScript, Tailwind CSS, Redux Toolkit and Zustand, alongside custom payment and LMS systems.",
     highlights: [
-      "Developing the frontend for a confidential premium domain marketplace: discovery, buy/leasing journeys, authenticated dashboards, orders, inquiries and account workflows.",
-      "Implemented a modular, feature-based frontend architecture and a centralized typed dashboard data layer designed for future backend integration.",
-      "Build reusable components from Figma with Next.js, React, TypeScript and Tailwind CSS; support server-side functionality through Next.js API Routes.",
-      "Customize ecommerce/CMS functionality, payment flows and integrations including Shopify/Liquid, WooCommerce gateways and CardPointe/Fiserv troubleshooting.",
-      "Collaborate with the CTO through Git-based code review while gathering client requirements, implementing revisions and performing QA before delivery.",
+      "Restructured the production frontend from a flat file structure into a modular monolith with 8 feature modules (Domains, Auth, Orders, Payments, Leasing, Inquiries, Notifications, Settings) and a centralized typed data-access layer, decoupling UI from the backend.",
+      "Develop server-side features with Next.js API Routes and NestJS, including Zod request validation, third-party API integration and PostgreSQL data access through Prisma.",
+      "Engineered a custom payment plugin on the Fiserv Commerce Hub API with HMAC-SHA256 signed requests, a transactions admin dashboard, a freemium Pro/Free paywall and security hardening.",
+      "Built SC Portal, a custom LMS/CRM plugin for course delivery and student management, and authored technical documentation enabling the non-technical client to manage course content independently.",
+      "Integrate and debug third-party payment systems (CardPointe/Fiserv, WooCommerce gateways) and customize Shopify (Liquid) and WooCommerce functionality for client projects.",
+      "Collaborate with the CTO on technical decisions; follow Git branching, pull-request code review and controlled merge workflows.",
     ],
   },
   {
-    role: "WordPress Developer",
-    company: "Freelance / Self-Directed",
+    role: "Web Developer",
+    company: "Freelance (Remote)",
     period: "Jan 2025 – Jun 2026",
     summary:
-      "Designed, developed and maintained 15+ WordPress websites across business, ecommerce and custom-functionality projects.",
+      "Delivered 15+ client websites end to end: requirements, Figma-to-code implementation, deployment, hosting, domains/DNS and post-launch maintenance.",
     highlights: [
-      "Built custom themes, plugins and shortcodes using WooCommerce, Elementor, ACF and custom post types.",
-      "Handled requirements, Figma-to-WordPress implementation, deployment and hosting, domains/DNS, payment integrations and post-launch maintenance.",
+      "Built custom WordPress plugins, themes and shortcodes in PHP and MySQL, extending CMS functionality with custom post types, ACF and WooCommerce.",
+      "Implemented and troubleshot payment gateway integrations for ecommerce clients, resolving checkout and third-party gateway issues.",
     ],
   },
   {
     role: "Associate CMS Developer",
-    company: "Geeks of Kolachi",
+    company: "Geeks of Kolachi, Karachi",
     period: "Oct 2024 – Dec 2024",
     summary:
-      "Delivered end-to-end CMS websites including custom functionality, payment integrations and third-party tool integrations.",
+      "Contributed to 10+ client projects, delivering custom functionality, payment integrations and third-party tool integrations.",
     highlights: [
-      "Built custom WordPress shortcodes and implemented Figma designs as responsive, functional CMS websites.",
-      "Maintained and debugged live websites while coordinating requirements and revisions with clients; delivered 10+ CMS projects.",
+      "Built reusable custom shortcodes and converted Figma designs into responsive, production-ready websites.",
+      "Maintained and debugged live sites while coordinating requirements and revisions directly with clients.",
     ],
   },
   {
     role: "WordPress Developer",
-    company: "Avancera Solutions",
+    company: "Avancera Solutions, Karachi",
     period: "Jul 2023 – Sep 2024",
     summary:
-      "Built CMS websites from scratch and developed foundational experience in frontend implementation and real-world debugging.",
+      "Built responsive websites from scratch with HTML, CSS, JavaScript and WordPress alongside senior developers.",
     highlights: [
-      "Collaborated with senior developers on production websites.",
-      "Received Employee of the Month recognition.",
+      "Diagnosed and fixed real-world production bugs.",
+      "Recognized as Employee of the Month.",
     ],
   },
 ];

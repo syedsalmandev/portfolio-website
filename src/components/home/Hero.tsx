@@ -32,7 +32,7 @@ export function Hero() {
               className="display mt-6 text-[2.75rem] xs:text-[3.25rem] sm:text-6xl lg:text-[3.75rem] xl:text-[4.5rem] 2xl:text-[5rem]"
             >
               <TextReveal
-                text="I build scalable websites, ecommerce platforms and"
+                text="I build production web applications, payment systems and"
                 delay={0.15}
               />{" "}
               <TextReveal
@@ -44,9 +44,10 @@ export function Hero() {
 
             <FadeIn delay={0.9}>
               <p className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                CMS &amp; Full Stack Developer with 3+ years of professional
-                experience building ecommerce platforms, CMS websites, custom
-                functionality and modern web applications.
+                Full Stack Developer with 3+ years of experience and 50+
+                delivered web projects across React, Next.js, TypeScript,
+                Node.js, NestJS and PostgreSQL — from modular frontends and REST
+                APIs to payment integrations and custom CMS solutions.
               </p>
             </FadeIn>
 

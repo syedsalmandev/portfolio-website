@@ -29,13 +29,13 @@ export function About() {
               <div>
                 <dt className="eyebrow">Focus</dt>
                 <dd className="mt-1 text-ink-2">
-                  Ecommerce · CMS · Web applications
+                  Web applications · APIs · Payments
                 </dd>
               </div>
               <div>
                 <dt className="eyebrow">Currently</dt>
                 <dd className="mt-1 text-ink-2">
-                  CMS &amp; Full Stack Developer, BetaGen Technologies
+                  Full Stack &amp; CMS Developer, BetaGen Technologies
                 </dd>
               </div>
             </dl>

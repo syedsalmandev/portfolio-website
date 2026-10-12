@@ -19,8 +19,9 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-6 max-w-sm text-base leading-relaxed text-muted">
-              {site.role}. Building ecommerce platforms, CMS websites and custom
-              web applications that stay practical for the teams running them.
+              {site.role}. Building production web applications, APIs and
+              payment integrations that stay practical for the teams running
+              them.
             </p>
             <p className="eyebrow mt-6">{site.location}</p>
           </div>
@@ -73,6 +74,26 @@ export function Footer() {
                     className="link-underline text-[0.9375rem] text-ink-2 hover:text-ink"
                   >
                     {site.phone}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={site.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline text-[0.9375rem] text-ink-2 hover:text-ink"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={site.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline text-[0.9375rem] text-ink-2 hover:text-ink"
+                  >
+                    GitHub
                   </a>
                 </li>
                 <li>

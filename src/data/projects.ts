@@ -222,7 +222,7 @@ export const projects: Project[] = [
     title: "Confidential Premium Domain Marketplace",
     category: "Next.js Application",
     label: "In Development",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     status: "In Development",
     year: "2026",
     confidential: true,
@@ -252,7 +252,7 @@ export const projects: Project[] = [
       "The production backend is not yet connected, so the dashboard had to be built in a way that lets the real data source be introduced later without rebuilding the screens.",
     ],
     myRole: [
-      "Frontend Developer responsible for the application architecture, reusable UI components, the public website, the customer dashboard and selected server-side functionality through Next.js API Routes.",
+      "Full Stack Developer responsible for the application architecture, reusable UI components, the public website, the customer dashboard and server-side features through Next.js API Routes and NestJS.",
       "Work is delivered through Git-based code review with the CTO, alongside requirement gathering, revisions and QA.",
     ],
     solution: [
@@ -281,7 +281,8 @@ export const projects: Project[] = [
       {
         title: "Server-Side Functionality",
         body: [
-          "Inquiry submissions are handled through a Next.js API Route that validates the payload and dispatches email via Nodemailer over SMTP — the first of the server-side pieces that will grow as the backend comes online.",
+          "Inquiry submissions are handled through a Next.js API Route that validates the payload and dispatches email via Nodemailer over SMTP.",
+          "Server-side features are developed with Next.js API Routes and NestJS, including Zod request validation, third-party API integration and PostgreSQL data access through Prisma.",
         ],
       },
     ],
@@ -308,6 +309,10 @@ export const projects: Project[] = [
       "Motion",
       "Next.js App Router",
       "Next.js API Routes",
+      "NestJS",
+      "Zod",
+      "PostgreSQL",
+      "Prisma",
       "Nodemailer / SMTP",
       "Git",
     ],

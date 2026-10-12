@@ -12,10 +12,10 @@ export function Tag({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.08em] leading-none",
-        tone === "default" && "border-line text-ink-2 bg-transparent",
-        tone === "accent" && "border-accent/30 text-accent bg-accent-soft/60",
-        tone === "inverted" && "border-white/15 text-paper/80 bg-white/5",
+        "inline-flex items-center rounded-full border px-2.5 py-1 text-[0.75rem] font-medium leading-none",
+        tone === "default" && "border-line bg-glass text-ink-2",
+        tone === "accent" && "border-accent/25 bg-accent-soft text-accent",
+        tone === "inverted" && "border-line-strong bg-glass-strong text-ink-2",
         className,
       )}
     >

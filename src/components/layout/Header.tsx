@@ -99,23 +99,21 @@ export function Header() {
     <>
       <motion.header
         initial={reduce ? false : { y: -24, opacity: 0 }}
-        animate={{ y: hidden && !open ? -96 : 0, opacity: 1 }}
+        animate={{ y: hidden && !open ? -112 : 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: EASE }}
-        className="fixed inset-x-0 top-0 z-50"
+        className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4"
       >
-        <div
-          className={cn(
-            "transition-[background-color,border-color] duration-500",
-            scrolled || open
-              ? "border-b border-line/80 bg-paper/85 backdrop-blur-md"
-              : "border-b border-transparent bg-transparent",
-          )}
-        >
-          <div className="container-x flex h-[4.25rem] items-center justify-between sm:h-20">
+        <div className="container-x">
+          <div
+            className={cn(
+              "glass-blur flex h-14 items-center justify-between rounded-full pl-2.5 pr-2 transition-[background-color,box-shadow] duration-500 sm:h-16 sm:pl-3",
+              (scrolled || open) && "shadow-lift",
+            )}
+          >
             <Link
               href="/"
-              className="group flex items-center gap-3"
-              aria-label={`${site.name} — home`}
+              className="group flex items-center gap-3 rounded-full"
+              aria-label={`${site.name}, home`}
               onClick={() => setOpen(false)}
             >
               <Monogram className="transition-transform duration-500 ease-out-expo group-hover:-rotate-3" />
@@ -136,18 +134,13 @@ export function Header() {
                     href={item.href}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
-                      "relative rounded-full px-3.5 py-2 text-[0.9375rem] transition-colors duration-300",
-                      isActive ? "text-ink" : "text-muted hover:text-ink",
+                      "relative rounded-full px-4 py-2 text-[0.9375rem] transition-colors duration-300",
+                      isActive
+                        ? "bg-glass-strong text-ink shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+                        : "text-muted hover:text-ink",
                     )}
                   >
                     {item.label}
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "absolute inset-x-3.5 -bottom-px h-px origin-left bg-ink transition-transform duration-500 ease-out-expo",
-                        isActive ? "scale-x-100" : "scale-x-0",
-                      )}
-                    />
                   </Link>
                 );
               })}
@@ -170,7 +163,7 @@ export function Header() {
                 aria-expanded={open}
                 aria-controls="mobile-menu"
                 aria-label={open ? "Close menu" : "Open menu"}
-                className="relative grid size-11 place-items-center rounded-full border border-line-strong bg-paper/60 lg:hidden"
+                className="relative grid size-10 place-items-center rounded-full border border-line bg-glass-strong sm:size-11 lg:hidden"
               >
                 <span
                   className={cn(
@@ -201,7 +194,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="fixed inset-0 z-40 flex flex-col bg-paper pt-[4.25rem] sm:pt-20 lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-paper/90 pt-[5.5rem] backdrop-blur-xl sm:pt-24 lg:hidden"
           >
             <div className="flex flex-1 flex-col overflow-y-auto">
               <nav

@@ -4,8 +4,8 @@ import { getAdjacentProjects, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui/Button";
-import { FadeIn, Reveal, Stagger, StaggerItem } from "../ui/Reveal";
-import { PhoneImage, ScreenImage } from "../ui/ScreenImage";
+import { Reveal } from "../ui/Reveal";
+import { PhoneImage, ScreenImage, ScreenPlaceholder } from "../ui/ScreenImage";
 import { Tag } from "../ui/Tag";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { MarketplaceMock } from "./MarketplaceMock";
@@ -44,22 +44,18 @@ function Section({
         className,
       )}
     >
-      <div className="grid gap-6 md:grid-cols-12 md:gap-8">
+      <Reveal className="grid gap-6 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-4">
-          <Reveal>
-            {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
-            <h2
-              id={`${id}-title`}
-              className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
-            >
-              {title}
-            </h2>
-          </Reveal>
+          {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
+          <h2
+            id={`${id}-title`}
+            className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
+          >
+            {title}
+          </h2>
         </div>
-        <div className="md:col-span-8">
-          <Reveal delay={0.08}>{children}</Reveal>
-        </div>
-      </div>
+        <div className="md:col-span-8">{children}</div>
+      </Reveal>
     </section>
   );
 }
@@ -78,13 +74,13 @@ function BulletList({
           key={b}
           className={cn(
             "flex gap-3 text-[0.9375rem] leading-relaxed",
-            dark ? "text-paper/75" : "text-muted",
+            dark ? "text-ink-2" : "text-muted",
           )}
         >
           <span
             className={cn(
-              "mt-[0.7em] inline-block h-px w-3 shrink-0",
-              dark ? "bg-paper/40" : "bg-line-strong",
+              "mt-[0.6em] inline-block size-1 shrink-0 rounded-full",
+              dark ? "bg-ink/40" : "bg-line-strong",
             )}
             aria-hidden
           />
@@ -144,112 +140,100 @@ export function CaseStudy({ project }: { project: Project }) {
     <article className="pt-[6.5rem] sm:pt-32 lg:pt-36">
       {/* ---------- Hero ---------- */}
       <header className="container-x">
-        <FadeIn>
-          <Link
-            href="/#work"
-            className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
+        <Link
+          href="/#work"
+          className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
+        >
+          <span
+            aria-hidden
+            className="inline-block transition-transform duration-500 ease-out-expo group-hover:-translate-x-1"
           >
-            <span
-              aria-hidden
-              className="inline-block transition-transform duration-500 ease-out-expo group-hover:-translate-x-1"
-            >
-              ←
-            </span>
-            All work
-          </Link>
-        </FadeIn>
+            ←
+          </span>
+          All work
+        </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-8">
-            <FadeIn delay={0.05}>
-              <div className="flex flex-wrap items-center gap-3">
-                {p.label ? (
-                  <Tag tone="accent">
-                    {p.status === "In Development" ? (
-                      <span className="mr-1.5 inline-block size-1.5 rounded-full bg-accent" />
-                    ) : null}
-                    {p.label}
-                  </Tag>
-                ) : null}
-                <span className="font-mono text-xs text-muted">
-                  {p.index} — {p.category}
-                </span>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <h1 className="display mt-6 text-[2.5rem] xs:text-[3rem] sm:text-6xl lg:text-[4.25rem]">
-                {p.title}
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.18}>
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-                {p.summary}
-              </p>
-            </FadeIn>
+            <div className="flex flex-wrap items-center gap-3">
+              {p.label ? (
+                <Tag tone="accent">
+                  {p.status === "In Development" ? (
+                    <span className="mr-1.5 inline-block size-1.5 rounded-full bg-accent" />
+                  ) : null}
+                  {p.label}
+                </Tag>
+              ) : null}
+              <span className="font-mono text-xs text-muted">
+                {p.index} · {p.category}
+              </span>
+            </div>
+            <h1 className="display mt-6 text-[2.5rem] xs:text-[3rem] sm:text-6xl lg:text-[4.25rem]">
+              {p.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+              {p.summary}
+            </p>
             {p.confidential ? (
-              <FadeIn delay={0.22}>
-                <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-paper-2 px-3.5 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-ink-2">
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 16 16"
-                    className="size-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <rect x="3" y="7" width="10" height="7" rx="1.5" />
-                    <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" />
-                  </svg>
-                  {p.confidentialNote}
-                </p>
-              </FadeIn>
+              <p className="glass mt-5 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm text-ink-2">
+                <svg
+                  aria-hidden
+                  viewBox="0 0 16 16"
+                  className="size-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="3" y="7" width="10" height="7" rx="1.5" />
+                  <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" />
+                </svg>
+                {p.confidentialNote}
+              </p>
             ) : null}
           </div>
 
           <div className="lg:col-span-4">
-            <FadeIn delay={0.25}>
-              <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 text-sm lg:grid-cols-1">
-                <div>
-                  <dt className="eyebrow">Role</dt>
-                  <dd className="mt-1 text-ink-2">{p.role}</dd>
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 text-sm lg:grid-cols-1">
+              <div>
+                <dt className="eyebrow">Role</dt>
+                <dd className="mt-1 text-ink-2">{p.role}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">Status</dt>
+                <dd className="mt-1 text-ink-2">{p.status}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">Category</dt>
+                <dd className="mt-1 text-ink-2">{p.category}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">Year</dt>
+                <dd className="mt-1 text-ink-2">{p.year}</dd>
+              </div>
+              {p.liveUrl ? (
+                <div className="col-span-2 lg:col-span-1">
+                  <dt className="eyebrow">Live Site</dt>
+                  <dd className="mt-1">
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline break-all text-ink-2"
+                    >
+                      {p.liveUrl
+                        .replace(/^https?:\/\/(www\.)?/, "")
+                        .replace(/\/$/, "")}
+                      {" ↗"}
+                    </a>
+                  </dd>
                 </div>
-                <div>
-                  <dt className="eyebrow">Status</dt>
-                  <dd className="mt-1 text-ink-2">{p.status}</dd>
-                </div>
-                <div>
-                  <dt className="eyebrow">Category</dt>
-                  <dd className="mt-1 text-ink-2">{p.category}</dd>
-                </div>
-                <div>
-                  <dt className="eyebrow">Year</dt>
-                  <dd className="mt-1 text-ink-2">{p.year}</dd>
-                </div>
-                {p.liveUrl ? (
-                  <div className="col-span-2 lg:col-span-1">
-                    <dt className="eyebrow">Live Site</dt>
-                    <dd className="mt-1">
-                      <a
-                        href={p.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="link-underline break-all text-ink-2"
-                      >
-                        {p.liveUrl
-                          .replace(/^https?:\/\/(www\.)?/, "")
-                          .replace(/\/$/, "")}
-                        {" ↗"}
-                      </a>
-                    </dd>
-                  </div>
-                ) : null}
-              </dl>
-            </FadeIn>
+              ) : null}
+            </dl>
           </div>
         </div>
 
         {/* cover */}
-        <FadeIn delay={0.35} y={40} className="mt-12 sm:mt-16">
+        <div className="mt-12 sm:mt-16">
           {p.cover ? (
             <div className="group relative">
               <ScreenImage
@@ -268,10 +252,12 @@ export function CaseStudy({ project }: { project: Project }) {
                 </div>
               ) : null}
             </div>
-          ) : (
+          ) : p.confidential ? (
             <MarketplaceMock tone="light" />
+          ) : (
+            <ScreenPlaceholder title={p.title} category={p.category} />
           )}
-        </FadeIn>
+        </div>
       </header>
 
       {/* ---------- Body ---------- */}
@@ -326,7 +312,7 @@ export function CaseStudy({ project }: { project: Project }) {
                   {p.architecture.folders.map((f) => (
                     <div
                       key={f.path}
-                      className="rounded-xl border border-line bg-white p-4"
+                      className="rounded-xl border border-line bg-glass p-4"
                     >
                       <p className="font-mono text-sm text-ink">{f.path}</p>
                       <p className="mt-1 text-sm text-muted">{f.description}</p>
@@ -338,7 +324,7 @@ export function CaseStudy({ project }: { project: Project }) {
                   <ul className="flex flex-wrap gap-2">
                     {p.architecture.modules.map((m) => (
                       <li key={m}>
-                        <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-2 text-sm text-ink-2">
+                        <span className="inline-flex items-center rounded-full border border-line bg-glass px-3.5 py-2 text-sm text-ink-2">
                           {m}
                         </span>
                       </li>
@@ -346,12 +332,12 @@ export function CaseStudy({ project }: { project: Project }) {
                   </ul>
                 </div>
 
-                <div className="mt-10 rounded-2xl bg-ink p-6 text-paper sm:p-8">
-                  <p className="eyebrow text-paper/50">Key technical feature</p>
+                <div className="glass mt-10 rounded-panel p-6 sm:p-8">
+                  <p className="eyebrow">Key technical feature</p>
                   <h3 className="mt-3 text-xl font-medium tracking-tight sm:text-2xl">
                     Centralized typed data-access layer
                   </h3>
-                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-paper/75">
+                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-2">
                     The dashboard uses a centralized typed data-access layer
                     through{" "}
                     <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.8125rem] whitespace-nowrap">
@@ -365,7 +351,7 @@ export function CaseStudy({ project }: { project: Project }) {
                   <div className="mt-8">
                     <ArchitectureDiagram tone="dark" />
                   </div>
-                  <p className="mt-6 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-paper/45">
+                  <p className="mt-6 text-sm text-muted">
                     Production database not yet connected · project in
                     development
                   </p>
@@ -429,19 +415,19 @@ export function CaseStudy({ project }: { project: Project }) {
                 className="scroll-mt-28"
               >
                 <Reveal>
-                  <div className="relative overflow-hidden rounded-2xl bg-ink p-7 text-paper sm:p-10">
+                  <div className="glass relative overflow-hidden rounded-panel p-7 sm:p-10">
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-[radial-gradient(closest-side,rgba(194,65,12,0.2),transparent)]"
+                      className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-[radial-gradient(closest-side,rgba(143,216,255,0.14),transparent)]"
                     />
-                    <p className="eyebrow text-paper/50">Principle</p>
+                    <p className="eyebrow">Principle</p>
                     <h2
                       id="callout-title"
-                      className="display mt-3 text-[1.75rem] uppercase tracking-[0.02em] sm:text-[2.25rem]"
+                      className="display mt-3 text-[1.75rem] sm:text-[2.25rem]"
                     >
                       {p.callout.title}
                     </h2>
-                    <div className="mt-5 space-y-4 text-[0.9375rem] leading-relaxed text-paper/75 sm:text-base">
+                    <div className="mt-5 space-y-4 text-[0.9375rem] leading-relaxed text-ink-2 sm:text-base">
                       {p.callout.body.map((b) => (
                         <p key={b}>{b}</p>
                       ))}
@@ -455,32 +441,29 @@ export function CaseStudy({ project }: { project: Project }) {
             ) : null}
 
             <Section id="features" title="Key Features">
-              <Stagger
-                as="ul"
-                className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2"
-                stagger={0.03}
-              >
+              <ul className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
                 {p.keyFeatures.map((f) => (
                   <li key={f} className="bg-paper px-4 py-3">
-                    <StaggerItem className="flex items-center gap-3 text-[0.9375rem] text-ink-2">
+                    <div className="flex items-center gap-3 text-[0.9375rem] text-ink-2">
                       <span
                         className="size-1.5 shrink-0 rounded-full bg-accent"
                         aria-hidden
                       />
                       {f}
-                    </StaggerItem>
+                    </div>
                   </li>
                 ))}
-              </Stagger>
+              </ul>
             </Section>
 
             <Section id="technology" title="Technology">
-              <ul className="flex flex-wrap gap-2">
+              <ul className="grid gap-x-8 border-t border-line sm:grid-cols-2">
                 {p.technology.map((t) => (
-                  <li key={t}>
-                    <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-2 text-sm text-ink-2">
-                      {t}
-                    </span>
+                  <li
+                    key={t}
+                    className="border-b border-line py-3 text-[0.9375rem] text-ink-2"
+                  >
+                    {t}
                   </li>
                 ))}
               </ul>
@@ -492,23 +475,15 @@ export function CaseStudy({ project }: { project: Project }) {
                 aria-labelledby="screens-title"
                 className="scroll-mt-28 border-t border-line pt-10 sm:pt-12"
               >
-                <Reveal>
-                  <h2
-                    id="screens-title"
-                    className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
-                  >
-                    Desktop Screens
-                  </h2>
-                </Reveal>
+                <h2
+                  id="screens-title"
+                  className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
+                >
+                  Desktop Screens
+                </h2>
                 <div className="mt-8 space-y-10">
-                  {p.screenshots.map((s, i) => (
-                    <Reveal
-                      key={s.alt}
-                      as="figure"
-                      className="group"
-                      delay={i * 0.05}
-                      amount={0.15}
-                    >
+                  {p.screenshots.map((s) => (
+                    <Reveal key={s.alt} as="figure" className="group">
                       <ScreenImage
                         src={s.src}
                         alt={s.alt}
@@ -531,17 +506,15 @@ export function CaseStudy({ project }: { project: Project }) {
                 aria-labelledby="mobile-title"
                 className="scroll-mt-28 border-t border-line pt-10 sm:pt-12"
               >
-                <Reveal>
-                  <h2
-                    id="mobile-title"
-                    className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
-                  >
-                    Mobile Screens
-                  </h2>
-                </Reveal>
+                <h2
+                  id="mobile-title"
+                  className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
+                >
+                  Mobile Screens
+                </h2>
                 <div className="mt-8 grid grid-cols-2 gap-6 rounded-2xl bg-paper-2 p-6 sm:grid-cols-3 sm:p-10">
-                  {p.mobileScreens.map((s, i) => (
-                    <Reveal key={s.alt} as="figure" delay={i * 0.08}>
+                  {p.mobileScreens.map((s) => (
+                    <Reveal key={s.alt} as="figure">
                       <PhoneImage
                         src={s.src}
                         alt={s.alt}
@@ -564,15 +537,13 @@ export function CaseStudy({ project }: { project: Project }) {
                 aria-labelledby="video-title"
                 className="scroll-mt-28 border-t border-line pt-10 sm:pt-12"
               >
-                <Reveal>
-                  <h2
-                    id="video-title"
-                    className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
-                  >
-                    Video
-                  </h2>
-                </Reveal>
-                <Reveal delay={0.08} className="mt-8">
+                <h2
+                  id="video-title"
+                  className="text-2xl font-medium tracking-tight sm:text-[1.75rem]"
+                >
+                  Video
+                </h2>
+                <Reveal className="mt-8">
                   <video
                     className="screen-frame w-full"
                     src={p.videoUrl}
@@ -586,7 +557,7 @@ export function CaseStudy({ project }: { project: Project }) {
 
             {/* ---------- CTA ---------- */}
             <Reveal>
-              <div className="flex flex-col gap-6 rounded-2xl border border-line bg-white p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+              <div className="glass flex flex-col gap-6 rounded-panel p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
                 <div>
                   <p className="eyebrow">
                     {p.liveUrl ? "See it live" : "Interested in the work?"}
@@ -624,7 +595,7 @@ export function CaseStudy({ project }: { project: Project }) {
           {prev ? (
             <Link
               href={`/work/${prev.slug}`}
-              className="group flex flex-col gap-2 rounded-2xl border border-line p-6 transition-colors hover:border-ink"
+              className="glass group flex flex-col gap-2 rounded-panel p-6 transition-colors hover:border-line-strong"
             >
               <span className="eyebrow">← Previous</span>
               <span className="text-lg font-medium tracking-tight">
@@ -636,7 +607,7 @@ export function CaseStudy({ project }: { project: Project }) {
           {next ? (
             <Link
               href={`/work/${next.slug}`}
-              className="group flex flex-col gap-2 rounded-2xl border border-line p-6 text-right transition-colors hover:border-ink sm:items-end"
+              className="glass group flex flex-col gap-2 rounded-panel p-6 text-right transition-colors hover:border-line-strong sm:items-end"
             >
               <span className="eyebrow">Next →</span>
               <span className="text-lg font-medium tracking-tight">

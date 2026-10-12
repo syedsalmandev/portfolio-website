@@ -8,7 +8,7 @@ import { Monogram } from "./Monogram";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-line bg-paper">
+    <footer className="border-t border-line bg-paper/60">
       <div className="container-x py-14 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
@@ -114,7 +114,7 @@ export function Footer() {
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <p className="font-mono uppercase tracking-[0.12em]">
+          <p>
             Next.js · TypeScript · Tailwind CSS
           </p>
         </div>

@@ -1,14 +1,8 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
-
 import { cn } from "@/lib/utils";
-
-import { EASE } from "../ui/Reveal";
 
 /**
  * Sanitized, abstract representation of the confidential marketplace dashboard.
- * No client identity, copy, domains or real data are shown — only interface structure.
+ * No client identity, copy, domains or real data are shown, only interface structure.
  */
 export function MarketplaceMock({
   className,
@@ -17,16 +11,15 @@ export function MarketplaceMock({
   className?: string;
   tone?: "dark" | "light";
 }) {
-  const reduce = useReducedMotion();
   const dark = tone === "dark";
 
   const bar = dark ? "bg-white/10" : "bg-ink/10";
   const barSoft = dark ? "bg-white/[0.06]" : "bg-ink/[0.06]";
   const panel = dark
     ? "border-white/10 bg-white/[0.03]"
-    : "border-ink/10 bg-white";
-  const text = dark ? "text-paper/70" : "text-ink-2";
-  const muted = dark ? "text-paper/40" : "text-muted";
+    : "border-ink/10 bg-glass";
+  const text = dark ? "text-ink/70" : "text-ink-2";
+  const muted = dark ? "text-ink/40" : "text-muted";
 
   const rows = [
     { w: "w-[42%]", status: "Active", tone: "ok" },
@@ -36,24 +29,15 @@ export function MarketplaceMock({
     { w: "w-[40%]", status: "Active", tone: "ok" },
   ] as const;
 
-  const item = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-  };
-
   return (
-    <motion.div
+    <div
       role="img"
       aria-label="Sanitized illustration of the marketplace customer dashboard: sidebar navigation, summary cards and an orders table with placeholder rows"
-      initial={reduce ? "show" : "hidden"}
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
       className={cn(
         "relative overflow-hidden rounded-xl border font-mono text-[0.6rem] leading-none",
         dark
-          ? "border-white/10 bg-[#161616] text-paper shadow-[0_40px_100px_-40px_rgba(0,0,0,0.8)]"
-          : "border-line bg-paper-2 text-ink shadow-[0_30px_80px_-40px_rgba(18,18,18,0.35)]",
+          ? "border-white/10 bg-[#0b0f19] text-ink shadow-[0_40px_100px_-40px_rgba(0,0,0,0.8)]"
+          : "border-line bg-paper-2 text-ink shadow-glass",
         className,
       )}
     >
@@ -65,7 +49,7 @@ export function MarketplaceMock({
         )}
       >
         <span
-          className={cn("size-5 rounded-md", dark ? "bg-paper/80" : "bg-ink")}
+          className={cn("size-5 rounded-md", dark ? "bg-ink/80" : "bg-ink")}
         />
         <span className={cn("h-2 w-16 rounded-full", bar)} />
         <div
@@ -104,9 +88,8 @@ export function MarketplaceMock({
             "Domains",
             "Settings",
           ].map((label, i) => (
-            <motion.div
+            <div
               key={label}
-              variants={item}
               className={cn(
                 "flex items-center gap-2 rounded-md px-2 py-1.5",
                 i === 1 && (dark ? "bg-white/10" : "bg-ink/10"),
@@ -118,36 +101,27 @@ export function MarketplaceMock({
               <span className={cn("hidden sm:inline", i === 1 ? text : muted)}>
                 {label}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* content */}
         <div className="flex flex-col gap-3 p-3 sm:p-4">
-          <motion.div
-            variants={item}
-            className="flex items-end justify-between"
-          >
+          <div className="flex items-end justify-between">
             <div className="flex flex-col gap-1.5">
               <span className={muted}>Orders</span>
               <span className={cn("h-2.5 w-24 rounded-full", bar)} />
             </div>
-            <span
-              className={cn(
-                "rounded-full px-2 py-1",
-                dark ? "bg-paper text-ink" : "bg-ink text-paper",
-              )}
-            >
+            <span className="rounded-full bg-ink px-2 py-1 text-paper">
               New Inquiry
             </span>
-          </motion.div>
+          </div>
 
           {/* stat cards */}
           <div className="grid grid-cols-3 gap-2">
             {["Active", "Pending", "Leased"].map((label) => (
-              <motion.div
+              <div
                 key={label}
-                variants={item}
                 className={cn(
                   "flex flex-col gap-2 rounded-lg border p-2.5",
                   panel,
@@ -156,7 +130,7 @@ export function MarketplaceMock({
                 <span className={muted}>{label}</span>
                 <span className={cn("h-3 w-8 rounded-sm", bar)} />
                 <span className={cn("h-1 w-full rounded-full", barSoft)} />
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -174,9 +148,8 @@ export function MarketplaceMock({
               <span>Status</span>
             </div>
             {rows.map((r, i) => (
-              <motion.div
+              <div
                 key={i}
-                variants={item}
                 className={cn(
                   "grid grid-cols-[1fr_auto_auto] items-center gap-3 px-3 py-2",
                   i < rows.length - 1 &&
@@ -202,13 +175,13 @@ export function MarketplaceMock({
                     r.tone === "warn" && "border-amber-500/30 text-amber-500",
                     r.tone === "neutral" &&
                       (dark
-                        ? "border-white/20 text-paper/60"
+                        ? "border-white/20 text-ink/60"
                         : "border-ink/20 text-muted"),
                   )}
                 >
                   {r.status}
                 </span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -217,14 +190,14 @@ export function MarketplaceMock({
       <div
         className={cn(
           "flex items-center justify-between border-t px-4 py-2",
-          dark ? "border-white/10 text-paper/40" : "border-ink/10 text-muted",
+          dark ? "border-white/10 text-ink/40" : "border-ink/10 text-muted",
         )}
       >
-        <span>Sanitized representation — no client data shown</span>
+        <span>Sanitized representation, no client data shown</span>
         <span className="hidden sm:inline">
           dashboard-api.ts → typed data layer
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }

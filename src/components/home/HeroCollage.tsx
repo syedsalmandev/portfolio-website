@@ -6,7 +6,6 @@ import {
   motion,
   useMotionValue,
   useReducedMotion,
-  useScroll,
   useSpring,
   useTransform,
 } from "motion/react";
@@ -16,25 +15,13 @@ import tabarukatCollections from "@/assets/projects/tabarukat-collections.webp";
 import tabarukatMobile from "@/assets/projects/tabarukat-mobile.webp";
 import tabarukatProducts from "@/assets/projects/tabarukat-products.webp";
 
-import { EASE } from "../ui/Reveal";
-
 /**
  * Layered collage of real project screenshots.
- * Layers drift on scroll at different rates and tilt very slightly toward the cursor.
+ * Layers tilt very slightly toward the cursor (mouse only, off for reduced motion).
  */
 export function HeroCollage() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const yMain = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const yPhone = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
-  const yCard = useTransform(scrollYProgress, [0, 1], ["0%", "-22%"]);
-  const ySmall = useTransform(scrollYProgress, [0, 1], ["0%", "-14%"]);
 
   const mx = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 20, mass: 0.6 });
@@ -53,12 +40,6 @@ export function HeroCollage() {
     mx.set(0);
   };
 
-  const enter = (delay: number) => ({
-    initial: reduce ? false : { opacity: 0, y: 40, scale: 0.98 },
-    animate: { opacity: 1, y: 0, scale: 1 },
-    transition: { duration: 1.2, ease: EASE, delay },
-  });
-
   return (
     <div
       ref={ref}
@@ -69,25 +50,18 @@ export function HeroCollage() {
       role="img"
     >
       {/* soft backdrop shape */}
-      <motion.div
+      <div
         aria-hidden
-        {...enter(0.1)}
-        className="absolute inset-x-[6%] inset-y-[8%] rounded-[2rem] bg-paper-2"
+        className="glass absolute inset-x-[6%] inset-y-[8%] rounded-[2rem]"
       />
 
       {/* main desktop screen */}
-      <motion.div
-        {...enter(0.35)}
-        className="absolute left-[4%] top-[6%] w-[80%]"
-      >
-        <motion.div
-          style={{ y: yMain, x: tiltMainX }}
-          className="will-change-transform"
-        >
+      <div className="absolute left-[4%] top-[6%] w-[80%]">
+        <motion.div style={{ x: tiltMainX }} className="will-change-transform">
           <div className="screen-frame">
             <div
               aria-hidden
-              className="flex h-6 items-center gap-1.5 border-b border-ink/5 bg-white/80 px-3 sm:h-7"
+              className="flex h-6 items-center gap-1.5 border-b border-ink/5 bg-white/[0.03] px-3 sm:h-7"
             >
               <span className="size-1.5 rounded-full bg-ink/10 sm:size-2" />
               <span className="size-1.5 rounded-full bg-ink/10 sm:size-2" />
@@ -107,14 +81,11 @@ export function HeroCollage() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* small secondary card, top right */}
-      <motion.div {...enter(0.55)} className="absolute right-0 top-0 w-[36%]">
-        <motion.div
-          style={{ y: ySmall, x: tiltCardX }}
-          className="will-change-transform"
-        >
+      <div className="absolute right-0 top-0 w-[36%]">
+        <motion.div style={{ x: tiltCardX }} className="will-change-transform">
           <div className="screen-frame">
             <div className="relative aspect-[1908/948] w-full overflow-hidden">
               <Image
@@ -128,17 +99,11 @@ export function HeroCollage() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* collections card, bottom right */}
-      <motion.div
-        {...enter(0.7)}
-        className="absolute bottom-[4%] right-[2%] w-[52%]"
-      >
-        <motion.div
-          style={{ y: yCard, x: tiltCardX }}
-          className="will-change-transform"
-        >
+      <div className="absolute bottom-[4%] right-[2%] w-[52%]">
+        <motion.div style={{ x: tiltCardX }} className="will-change-transform">
           <div className="screen-frame">
             <div className="relative aspect-[1908/948] w-full overflow-hidden">
               <Image
@@ -152,19 +117,16 @@ export function HeroCollage() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* phone, bottom left */}
-      <motion.div {...enter(0.85)} className="absolute bottom-0 left-0 w-[27%]">
-        <motion.div
-          style={{ y: yPhone, x: tiltPhoneX }}
-          className="will-change-transform"
-        >
-          <div className="rounded-[14%/7%] border border-ink/10 bg-ink p-[3%] shadow-[0_30px_80px_-30px_rgba(18,18,18,0.5)]">
+      <div className="absolute bottom-0 left-0 w-[27%]">
+        <motion.div style={{ x: tiltPhoneX }} className="will-change-transform">
+          <div className="rounded-[14%/7%] border border-white/12 bg-[#04060a] p-[3%] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_30px_80px_-30px_rgba(0,0,0,0.9)]">
             <div className="relative aspect-[357/603] w-full overflow-hidden rounded-[11%/6%] bg-white">
               <div
                 aria-hidden
-                className="absolute left-1/2 top-[1.5%] z-10 h-[2.5%] w-[36%] -translate-x-1/2 rounded-full bg-ink"
+                className="absolute left-1/2 top-[1.5%] z-10 h-[2.5%] w-[36%] -translate-x-1/2 rounded-full bg-[#04060a]"
               />
               <Image
                 src={tabarukatMobile}
@@ -177,17 +139,16 @@ export function HeroCollage() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* floating meta chip */}
-      <motion.div
-        {...enter(1)}
-        className="absolute left-[30%] top-[2%] hidden items-center gap-2 rounded-full border border-line bg-paper/90 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-2 shadow-sm backdrop-blur sm:flex"
+      <div
+        className="glass-blur absolute left-[30%] top-[2%] hidden items-center gap-2 rounded-full px-3 py-1.5 text-xs text-ink-2 sm:flex"
         aria-hidden
       >
         <span className="size-1.5 rounded-full bg-accent" />
         1,020+ products · Shopify
-      </motion.div>
+      </div>
     </div>
   );
 }

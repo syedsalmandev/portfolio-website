@@ -18,33 +18,22 @@ export function SectionHeading({
   as?: "h1" | "h2" | "h3";
 }) {
   return (
-    <div
+    <Reveal
       className={cn(
         "flex flex-col gap-4",
         align === "center" && "items-center text-center",
         className,
       )}
     >
-      {eyebrow ? (
-        <Reveal>
-          <p className="eyebrow flex items-center gap-3">
-            <span className="inline-block h-px w-6 bg-accent" aria-hidden />
-            {eyebrow}
-          </p>
-        </Reveal>
-      ) : null}
-      <Reveal delay={0.05}>
-        <Heading className="display text-[2rem] xs:text-[2.5rem] sm:text-5xl lg:text-[3.5rem]">
-          {title}
-        </Heading>
-      </Reveal>
+      {eyebrow ? <p className="eyebrow text-accent">{eyebrow}</p> : null}
+      <Heading className="display text-[2rem] xs:text-[2.5rem] sm:text-5xl lg:text-[3.5rem]">
+        {title}
+      </Heading>
       {description ? (
-        <Reveal delay={0.1}>
-          <div className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            {description}
-          </div>
-        </Reveal>
+        <div className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+          {description}
+        </div>
       ) : null}
-    </div>
+    </Reveal>
   );
 }

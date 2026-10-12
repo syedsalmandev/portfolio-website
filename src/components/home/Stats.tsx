@@ -1,6 +1,6 @@
 import { stats } from "@/data/site";
 
-import { Stagger, StaggerItem } from "../ui/Reveal";
+import { Reveal } from "../ui/Reveal";
 
 export function Stats() {
   return (
@@ -8,20 +8,18 @@ export function Stats() {
       aria-label="Quick credibility"
       className="container-x mt-20 sm:mt-28 lg:mt-32"
     >
-      <Stagger
+      <Reveal
         as="ul"
-        className="grid grid-cols-2 border-y border-line lg:grid-cols-4"
+        className="glass grid grid-cols-2 overflow-hidden rounded-panel lg:grid-cols-4"
       >
         {stats.map((s, i) => (
-          <StaggerItem
-            as="li"
+          <li
             key={s.label}
             className={[
-              "flex flex-col justify-between gap-4 py-7 pr-4 sm:py-9",
-              i % 2 === 1 ? "border-l border-line pl-5 sm:pl-8" : "",
+              "flex flex-col justify-between gap-4 px-5 py-7 sm:px-8 sm:py-9",
+              i % 2 === 1 ? "border-l border-line" : "",
               i >= 2 ? "border-t border-line lg:border-t-0" : "",
-              i === 2 ? "lg:border-l lg:pl-8" : "",
-              i === 3 ? "lg:pl-8" : "",
+              i === 2 ? "lg:border-l" : "",
             ].join(" ")}
           >
             <span className="display break-words text-[1.375rem] leading-none xs:text-[1.625rem] sm:text-[2.25rem] lg:text-[2.5rem]">
@@ -30,9 +28,9 @@ export function Stats() {
             <span className="text-sm text-muted sm:text-[0.9375rem]">
               {s.label}
             </span>
-          </StaggerItem>
+          </li>
         ))}
-      </Stagger>
+      </Reveal>
     </section>
   );
 }

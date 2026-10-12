@@ -1,194 +1,84 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
-import { cn } from "@/lib/utils";
+type RevealTag = "div" | "section" | "article" | "figure" | "li" | "ul" | "ol";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+let observer: IntersectionObserver | null = null;
 
-type RevealProps = {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  duration?: number;
-  /** Distance in px the element travels in from */
-  y?: number;
-  once?: boolean;
-  amount?: number;
-  as?: "div" | "section" | "li" | "span" | "figure";
-};
+/** One shared observer for every revealed element on the page. */
+function getObserver() {
+  if (!observer) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.setAttribute("data-revealed", "");
+          observer?.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0 },
+    );
+  }
+  return observer;
+}
 
-/** Fade + rise into view, once, with reduced-motion fallback. */
+/**
+ * Fades its content in and lifts it slightly the first time it enters the viewport.
+ *
+ * The hidden state lives in CSS (see `[data-reveal]` in globals.css) and only
+ * applies once the `js` class is on <html> and the visitor allows motion, so
+ * content is never hidden without JavaScript or for reduced-motion users.
+ * Use it for sections and cards, not for individual paragraphs or badges.
+ */
 export function Reveal({
   children,
   className,
   delay = 0,
-  duration = 0.9,
-  y = 24,
-  once = true,
-  amount = 0.25,
   as = "div",
-}: RevealProps) {
-  const reduce = useReducedMotion();
-  const Comp = motion[as];
-  return (
-    <Comp
-      className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount, margin: "0px 0px -8% 0px" }}
-      transition={{ duration, delay, ease: EASE }}
-    >
-      {children}
-    </Comp>
-  );
-}
-
-const staggerContainer: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-
-const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
-};
-
-/** Parent that staggers its <StaggerItem /> children when scrolled into view. */
-export function Stagger({
-  children,
-  className,
-  as = "div",
-  amount = 0.2,
-  stagger = 0.08,
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
-  as?: "div" | "ul" | "ol" | "section";
-  amount?: number;
-  stagger?: number;
-}) {
-  const reduce = useReducedMotion();
-  const Comp = motion[as];
-  return (
-    <Comp
-      className={className}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
-      }}
-      initial={reduce ? "show" : "hidden"}
-      whileInView="show"
-      viewport={{ once: true, amount, margin: "0px 0px -8% 0px" }}
-    >
-      {children}
-    </Comp>
-  );
-}
-
-export function StaggerItem({
-  children,
-  className,
-  as = "div",
-}: {
-  children: ReactNode;
-  className?: string;
-  as?: "div" | "li" | "span" | "article";
-}) {
-  const Comp = motion[as];
-  return (
-    <Comp className={className} variants={staggerItem}>
-      {children}
-    </Comp>
-  );
-}
-
-/**
- * Word-by-word text reveal with a clip mask — used for hero and large headings.
- * Renders a single accessible string for screen readers.
- */
-export function TextReveal({
-  text,
-  className,
-  delay = 0,
-  as = "span",
-  stagger = 0.045,
-}: {
-  text: string;
-  className?: string;
+  /** Delay in milliseconds, for staggering sibling cards. */
   delay?: number;
-  as?: "span" | "h1" | "h2" | "p";
-  stagger?: number;
-}) {
-  const reduce = useReducedMotion();
-  const words = text.split(" ");
-  const Comp = motion[as];
-  return (
-    <Comp
-      className={cn("inline", className)}
-      aria-label={text}
-      initial={reduce ? "show" : "hidden"}
-      animate="show"
-      variants={{
-        hidden: {},
-        show: {
-          transition: { staggerChildren: stagger, delayChildren: delay },
-        },
-      }}
-    >
-      {words.map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-bottom"
-          aria-hidden
-        >
-          <motion.span
-            className="inline-block will-change-transform"
-            variants={{
-              hidden: { y: "110%", opacity: 0 },
-              show: {
-                y: "0%",
-                opacity: 1,
-                transition: { duration: 1, ease: EASE },
-              },
-            }}
-          >
-            {word}
-            {i < words.length - 1 ? "\u00A0" : ""}
-          </motion.span>
-        </span>
-      ))}
-    </Comp>
-  );
-}
+  as?: RevealTag;
+} & Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "children" | "className" | "style"
+>) {
+  const ref = useRef<HTMLElement>(null);
 
-/** Simple fade-in on mount (hero elements that shouldn't wait for scroll). */
-export function FadeIn({
-  children,
-  className,
-  delay = 0,
-  y = 16,
-  duration = 0.9,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  y?: number;
-  duration?: number;
-}) {
-  const reduce = useReducedMotion();
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) {
+      el.setAttribute("data-revealed", "");
+      return;
+    }
+    const io = getObserver();
+    io.observe(el);
+    return () => io.unobserve(el);
+  }, []);
+
+  // All allowed tags share HTMLElement's props; typing as "div" keeps JSX happy.
+  const Tag = as as "div";
   return (
-    <motion.div
+    <Tag
+      ref={ref as React.Ref<HTMLDivElement>}
+      {...rest}
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration, delay, ease: EASE }}
+      data-reveal=""
+      style={
+        delay
+          ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties)
+          : undefined
+      }
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }
 
-// keep the exported variants available for bespoke compositions
-export { staggerContainer, staggerItem, EASE };
+// Shared easing for the remaining motion-driven components (header, collage tilt).
+export const EASE = [0.16, 1, 0.3, 1] as const;

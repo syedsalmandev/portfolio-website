@@ -69,8 +69,8 @@ export const expertise = [
 export const about = {
   paragraphs: [
     "I'm a Full Stack Developer based in Karachi, Pakistan with 3+ years of experience building production web applications and 50+ delivered web projects.",
-    "I'm currently building a premium domain marketplace with Next.js, React, TypeScript and PostgreSQL/Prisma, and engineering custom payment and LMS systems — including a Fiserv Commerce Hub integration with HMAC-SHA256 request signing.",
-    "My strengths are modular frontend architecture, REST API development, third-party and payment integrations, and shipping client-facing products end to end — backed by deep WordPress, WooCommerce and Shopify experience.",
+    "I'm currently building a premium domain marketplace with Next.js, React, TypeScript and PostgreSQL/Prisma, and engineering custom payment and LMS systems, including a Fiserv Commerce Hub integration with HMAC-SHA256 request signing.",
+    "My strengths are modular frontend architecture, REST API development, third-party and payment integrations, and shipping client-facing products end to end, backed by deep WordPress, WooCommerce and Shopify experience.",
     "Alongside client work I'm pursuing a BS in Computer Engineering, with a focus on building maintainable products that perform reliably and stay practical for the teams running them.",
   ],
   education: [

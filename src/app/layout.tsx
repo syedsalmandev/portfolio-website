@@ -70,7 +70,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f6f3",
+  themeColor: "#07090f",
   width: "device-width",
   initialScale: 1,
 };
@@ -80,7 +80,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Enables scroll-reveal styles before first paint; without JS, content stays visible. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"

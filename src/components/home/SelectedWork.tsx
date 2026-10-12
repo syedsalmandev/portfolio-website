@@ -2,243 +2,197 @@ import Link from "next/link";
 
 import {
   additionalWork,
-  projects,
+  featuredProjects,
   secondaryProjects,
   type Project,
 } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui/Button";
-import { Reveal, Stagger, StaggerItem } from "../ui/Reveal";
-import { PhoneImage, ScreenImage } from "../ui/ScreenImage";
+import { Reveal } from "../ui/Reveal";
+import { PhoneImage, ScreenImage, ScreenPlaceholder } from "../ui/ScreenImage";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Tag } from "../ui/Tag";
 import { MarketplaceMock } from "../work/MarketplaceMock";
 
-const tabarukat = projects[0];
-const marketplace = projects[1];
+const [latest, tabarukat, marketplace] = featuredProjects;
 
-function ProjectMeta({
-  project,
-  dark = false,
-}: {
-  project: Project;
-  dark?: boolean;
-}) {
+function ProjectMeta({ project }: { project: Project }) {
   return (
-    <dl
-      className={cn(
-        "grid grid-cols-2 gap-x-6 gap-y-3 border-t pt-5 text-sm",
-        dark ? "border-white/10" : "border-line",
-      )}
-    >
+    <dl className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line pt-5 text-sm">
       <div>
-        <dt className={cn("eyebrow", dark && "text-paper/50")}>Role</dt>
-        <dd className={cn("mt-1", dark ? "text-paper/85" : "text-ink-2")}>
-          {project.role}
-        </dd>
+        <dt className="eyebrow">Role</dt>
+        <dd className="mt-1 text-ink-2">{project.role}</dd>
       </div>
       <div>
-        <dt className={cn("eyebrow", dark && "text-paper/50")}>Status</dt>
-        <dd className={cn("mt-1", dark ? "text-paper/85" : "text-ink-2")}>
-          {project.status}
-        </dd>
+        <dt className="eyebrow">Status</dt>
+        <dd className="mt-1 text-ink-2">{project.status}</dd>
       </div>
     </dl>
   );
 }
 
-function FeaturedTabarukat() {
-  const p = tabarukat;
+function FeaturedProject({ project: p }: { project: Project }) {
   return (
-    <article className="group relative" aria-labelledby={`project-${p.slug}`}>
-      <Reveal>
-        <div className="flex flex-wrap items-center gap-3">
-          <Tag tone="accent">{p.label}</Tag>
-          <span className="font-mono text-xs text-muted">
-            {p.index} — {p.category}
-          </span>
-        </div>
-      </Reveal>
+    <Reveal
+      as="article"
+      className="group relative"
+      aria-labelledby={`project-${p.slug}`}
+    >
+      <div className="flex flex-wrap items-center gap-3">
+        <Tag tone="accent">{p.label}</Tag>
+        <span className="font-mono text-xs text-muted">
+          {p.index} · {p.category}
+        </span>
+      </div>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="relative lg:col-span-8">
-          <Reveal y={40} amount={0.15}>
-            <Link
-              href={`/work/${p.slug}`}
-              className="block"
-              aria-label={`${p.title} case study`}
-            >
-              {p.cover ? (
-                <ScreenImage
-                  src={p.cover.src}
-                  alt={p.cover.alt}
-                  sizes="(min-width: 1280px) 62vw, (min-width: 1024px) 66vw, 100vw"
-                />
-              ) : null}
-            </Link>
-          </Reveal>
+          <Link
+            href={`/work/${p.slug}`}
+            className="block"
+            aria-label={`${p.title} case study`}
+          >
+            {p.cover ? (
+              <ScreenImage
+                src={p.cover.src}
+                alt={p.cover.alt}
+                sizes="(min-width: 1280px) 62vw, (min-width: 1024px) 66vw, 100vw"
+              />
+            ) : (
+              <ScreenPlaceholder title={p.title} category={p.category} />
+            )}
+          </Link>
           {p.mobileScreens[0] ? (
-            <Reveal
-              delay={0.2}
-              y={50}
-              className="absolute -bottom-6 right-4 w-[26%] max-w-[10.5rem] sm:-bottom-10 sm:right-6 lg:right-2 lg:w-[22%]"
-            >
+            <div className="absolute -bottom-6 right-4 w-[26%] max-w-[10.5rem] sm:-bottom-10 sm:right-6 lg:right-2 lg:w-[22%]">
               <PhoneImage
                 src={p.mobileScreens[0].src}
                 alt={p.mobileScreens[0].alt}
                 sizes="(min-width: 1024px) 14vw, 26vw"
               />
-            </Reveal>
+            </div>
           ) : null}
         </div>
 
         <div className="mt-8 flex flex-col justify-end lg:col-span-4 lg:mt-0">
-          <Reveal delay={0.1}>
-            <h3
-              id={`project-${p.slug}`}
-              className="display text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem]"
-            >
-              <Link href={`/work/${p.slug}`} className="hover:text-ink-2">
-                {p.title}
-              </Link>
-            </h3>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-5 text-base leading-relaxed text-muted">
-              {p.summary}
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technology">
-              {p.tags.map((t) => (
-                <li key={t}>
-                  <Tag>{t}</Tag>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={0.25} className="mt-6">
+          <h3
+            id={`project-${p.slug}`}
+            className="display text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem]"
+          >
+            <Link href={`/work/${p.slug}`} className="hover:text-ink-2">
+              {p.title}
+            </Link>
+          </h3>
+          <p className="mt-5 text-base leading-relaxed text-muted">
+            {p.summary}
+          </p>
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technology">
+            {p.tags.map((t) => (
+              <li key={t}>
+                <Tag>{t}</Tag>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6">
             <ProjectMeta project={p} />
-          </Reveal>
-          <Reveal delay={0.3}>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button href={`/work/${p.slug}`}>View Case Study</Button>
-              {p.liveUrl ? (
-                <Button href={p.liveUrl} variant="secondary" icon="external">
-                  Live Site
-                </Button>
-              ) : null}
-            </div>
-          </Reveal>
+          </div>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button href={`/work/${p.slug}`}>View Case Study</Button>
+            {p.liveUrl ? (
+              <Button href={p.liveUrl} variant="secondary" icon="external">
+                Live Site
+              </Button>
+            ) : null}
+          </div>
         </div>
       </div>
-    </article>
+    </Reveal>
   );
 }
 
 function FeaturedMarketplace() {
   const p = marketplace;
   return (
-    <article
-      className="relative -mx-5 overflow-hidden bg-ink px-5 py-16 text-paper sm:-mx-8 sm:px-8 sm:py-20 lg:-mx-12 lg:rounded-[2rem] lg:px-12 lg:py-24 xl:-mx-16 xl:px-16"
+    <Reveal
+      as="article"
+      className="glass relative overflow-hidden rounded-panel px-5 py-12 sm:px-10 sm:py-16 lg:-mx-6 lg:rounded-[2rem] lg:px-12 lg:py-20 xl:-mx-10 xl:px-16"
       aria-labelledby={`project-${p.slug}`}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 -top-32 size-[30rem] rounded-full bg-[radial-gradient(closest-side,rgba(194,65,12,0.16),transparent)]"
+        className="pointer-events-none absolute -left-32 -top-32 size-[30rem] rounded-full bg-[radial-gradient(closest-side,rgba(143,216,255,0.12),transparent)]"
       />
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="flex flex-col lg:col-span-5">
-          <Reveal>
-            <div className="flex flex-wrap items-center gap-3">
-              <Tag tone="inverted">
-                <span className="mr-1.5 inline-block size-1.5 rounded-full bg-accent" />
-                {p.status}
-              </Tag>
-              <span className="font-mono text-xs text-paper/50">
-                {p.index} — {p.category}
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h3
-              id={`project-${p.slug}`}
-              className="display mt-6 text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem]"
-            >
-              <Link href={`/work/${p.slug}`} className="hover:text-paper/80">
-                Confidential Premium{" "}
-                <span className="serif-accent">Domain Marketplace</span>
-              </Link>
-            </h3>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-5 text-base leading-relaxed text-paper/70">
-              {p.summary}
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-4 text-sm text-paper/70">
-              Built as a modular monolith with feature modules for Domains,
-              Auth, Orders, Payments, Leasing, Inquiries, Notifications and
-              Settings, and a centralized typed data-access layer so the
-              production backend can replace the current data source without
-              major UI restructuring.
-            </p>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technology">
-              {p.tags.map((t) => (
-                <li key={t}>
-                  <Tag tone="inverted">{t}</Tag>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={0.3} className="mt-6">
-            <ProjectMeta project={p} dark />
-          </Reveal>
-          <Reveal delay={0.35}>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button href={`/work/${p.slug}`} variant="inverted">
-                View Case Study
-              </Button>
-            </div>
-            <p className="mt-5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-paper/45">
-              {p.confidentialNote}
-            </p>
-          </Reveal>
+          <div className="flex flex-wrap items-center gap-3">
+            <Tag tone="inverted">
+              <span className="mr-1.5 inline-block size-1.5 rounded-full bg-accent" />
+              {p.status}
+            </Tag>
+            <span className="font-mono text-xs text-muted">
+              {p.index} · {p.category}
+            </span>
+          </div>
+          <h3
+            id={`project-${p.slug}`}
+            className="display mt-6 text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem]"
+          >
+            <Link href={`/work/${p.slug}`} className="hover:text-ink-2">
+              Confidential Premium{" "}
+              <span className="serif-accent">Domain Marketplace</span>
+            </Link>
+          </h3>
+          <p className="mt-5 text-base leading-relaxed text-ink-2">
+            {p.summary}
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            Built as a modular monolith with feature modules for Domains, Auth,
+            Orders, Payments, Leasing, Inquiries, Notifications and Settings,
+            and a centralized typed data-access layer so the production backend
+            can replace the current data source without major UI restructuring.
+          </p>
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technology">
+            {p.tags.map((t) => (
+              <li key={t}>
+                <Tag tone="inverted">{t}</Tag>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6">
+            <ProjectMeta project={p} />
+          </div>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button href={`/work/${p.slug}`}>View Case Study</Button>
+          </div>
+          <p className="mt-5 text-sm text-muted">{p.confidentialNote}</p>
         </div>
 
         <div className="lg:col-span-7">
-          <Reveal y={40} amount={0.15} className="lg:pl-4">
+          <div className="lg:pl-4">
             <MarketplaceMock />
-          </Reveal>
-          <Stagger
-            className="mt-6 grid grid-cols-3 gap-3 text-center"
-            stagger={0.1}
-          >
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-3 text-center">
             {[
               ["src/app/", "Routes"],
               ["src/modules/", "Feature modules"],
               ["src/components/", "Shared UI"],
             ].map(([path, label]) => (
-              <StaggerItem
+              <div
                 key={path}
-                className="rounded-lg border border-white/10 px-2 py-3 sm:px-3"
+                className="rounded-xl border border-line bg-glass px-2 py-3 sm:px-3"
               >
-                <p className="font-mono text-[0.6875rem] text-paper sm:text-xs">
+                <p className="font-mono text-[0.6875rem] text-ink sm:text-xs">
                   {path}
                 </p>
-                <p className="mt-1 text-[0.6875rem] text-paper/50 sm:text-xs">
+                <p className="mt-1 text-[0.6875rem] text-muted sm:text-xs">
                   {label}
                 </p>
-              </StaggerItem>
+              </div>
             ))}
-          </Stagger>
+          </div>
         </div>
       </div>
-    </article>
+    </Reveal>
   );
 }
 
@@ -246,13 +200,15 @@ function ProjectCard({
   project,
   span,
   wide = false,
+  delay = 0,
 }: {
   project: Project;
   span: string;
   wide?: boolean;
+  delay?: number;
 }) {
   return (
-    <StaggerItem as="article" className={cn("group", span)}>
+    <Reveal as="article" delay={delay} className={cn("group", span)}>
       <div
         className={cn(
           "flex h-full flex-col gap-6",
@@ -262,7 +218,10 @@ function ProjectCard({
         <Link
           href={`/work/${project.slug}`}
           aria-label={`${project.title} case study`}
-          className={cn("block", wide && "lg:col-span-8")}
+          className={cn(
+            "block rounded-frame transition-transform duration-700 ease-out-expo group-hover:-translate-y-1.5",
+            wide && "lg:col-span-8",
+          )}
         >
           {project.cover ? (
             <ScreenImage
@@ -274,21 +233,26 @@ function ProjectCard({
                   : "(min-width: 1024px) 45vw, 100vw"
               }
             />
-          ) : null}
+          ) : (
+            <ScreenPlaceholder
+              title={project.title}
+              category={project.category}
+            />
+          )}
         </Link>
         <div className={cn("flex flex-col", wide && "lg:col-span-4")}>
           <div className="flex items-center justify-between gap-4">
             <span className="min-w-0 font-mono text-xs text-muted">
-              {project.index} — {project.category}
+              {project.index} · {project.category}
             </span>
             {project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] whitespace-nowrap text-ink-2"
+                className="link-underline shrink-0 text-sm whitespace-nowrap text-ink-2 hover:text-ink"
               >
-                Live Site ↗
+                Live site ↗
               </a>
             ) : null}
           </div>
@@ -324,46 +288,38 @@ function ProjectCard({
           </Link>
         </div>
       </div>
-    </StaggerItem>
+    </Reveal>
   );
 }
 
 function AdditionalWork() {
   return (
-    <div className="mt-24 border-t border-line pt-14 sm:mt-32 sm:pt-20">
+    <Reveal className="mt-24 border-t border-line pt-14 sm:mt-32 sm:pt-20">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
-          <Reveal>
-            <p className="eyebrow flex items-center gap-3">
-              <span className="inline-block h-px w-6 bg-accent" aria-hidden />
-              {additionalWork.title}
-            </p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="display mt-6 text-[3.5rem] leading-none sm:text-[4.5rem]">
-              {additionalWork.stat.value}
-            </p>
-            <p className="mt-2 text-muted">{additionalWork.stat.label}</p>
-          </Reveal>
+          <p className="eyebrow text-accent">{additionalWork.title}</p>
+          <p className="display mt-6 text-[3.5rem] leading-none sm:text-[4.5rem]">
+            {additionalWork.stat.value}
+          </p>
+          <p className="mt-2 text-muted">{additionalWork.stat.label}</p>
         </div>
         <div className="lg:col-span-7">
-          <Reveal delay={0.1}>
-            <p className="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              {additionalWork.copy}
-            </p>
-          </Reveal>
-          <Stagger as="ul" className="mt-8 flex flex-wrap gap-2" stagger={0.04}>
+          <p className="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            {additionalWork.copy}
+          </p>
+          <ul className="mt-8 grid grid-cols-2 gap-x-8 border-t border-line sm:grid-cols-3">
             {additionalWork.areas.map((a) => (
-              <StaggerItem as="li" key={a}>
-                <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-2 text-sm text-ink-2">
-                  {a}
-                </span>
-              </StaggerItem>
+              <li
+                key={a}
+                className="border-b border-line py-3 text-[0.9375rem] text-ink-2"
+              >
+                {a}
+              </li>
             ))}
-          </Stagger>
+          </ul>
         </div>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
@@ -385,30 +341,27 @@ export function SelectedWork() {
             </span>
           }
         />
-        <Reveal delay={0.15}>
+        <Reveal delay={100}>
           <p className="max-w-xs text-sm leading-relaxed text-muted">
-            Seven selected projects across Shopify, WordPress / WooCommerce and
-            Next.js — from large product catalogs to a dashboard-driven
+            Eight selected projects across Shopify, WordPress / WooCommerce and
+            Next.js, from large product catalogs to a dashboard-driven
             application.
           </p>
         </Reveal>
       </div>
 
       <div className="mt-14 space-y-24 sm:mt-20 sm:space-y-32">
-        <FeaturedTabarukat />
+        <FeaturedProject project={latest} />
+        <FeaturedProject project={tabarukat} />
         <FeaturedMarketplace />
 
-        <Stagger
-          className="grid gap-x-8 gap-y-16 lg:grid-cols-12 lg:items-end lg:gap-y-20"
-          amount={0.1}
-          stagger={0.12}
-        >
+        <div className="grid gap-x-8 gap-y-16 lg:grid-cols-12 lg:items-end lg:gap-y-20">
           <ProjectCard project={alpha} span="lg:col-span-7" />
-          <ProjectCard project={silverstein} span="lg:col-span-5" />
+          <ProjectCard project={silverstein} span="lg:col-span-5" delay={100} />
           <ProjectCard project={triple} span="lg:col-span-5" />
-          <ProjectCard project={sherman} span="lg:col-span-7" />
+          <ProjectCard project={sherman} span="lg:col-span-7" delay={100} />
           <ProjectCard project={logiciel} span="lg:col-span-12" wide />
-        </Stagger>
+        </div>
       </div>
 
       <AdditionalWork />

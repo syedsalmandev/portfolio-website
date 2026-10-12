@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { site } from "@/data/site";
 
-export const alt = `${site.name} — ${site.role}`;
+export const alt = `${site.name}, ${site.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,8 +16,8 @@ export default function OpenGraphImage() {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 72,
-        background: "#f7f6f3",
-        color: "#121212",
+        background: "#07090f",
+        color: "#edf1f7",
         fontFamily: "sans-serif",
       }}
     >
@@ -27,8 +27,8 @@ export default function OpenGraphImage() {
             width: 56,
             height: 56,
             borderRadius: 14,
-            background: "#121212",
-            color: "#f7f6f3",
+            background: "#edf1f7",
+            color: "#07090f",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -41,7 +41,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 26, fontWeight: 600 }}>{site.name}</div>
-          <div style={{ fontSize: 18, color: "#6b6b6b" }}>{site.role}</div>
+          <div style={{ fontSize: 18, color: "#8b95a8" }}>{site.role}</div>
         </div>
       </div>
 
@@ -69,7 +69,7 @@ export default function OpenGraphImage() {
             display: "flex",
             gap: 14,
             fontSize: 18,
-            color: "#6b6b6b",
+            color: "#8b95a8",
           }}
         >
           <span>Shopify</span>
@@ -90,7 +90,7 @@ export default function OpenGraphImage() {
           width: 420,
           height: 630,
           background:
-            "radial-gradient(closest-side at 70% 30%, rgba(194,65,12,0.16), transparent)",
+            "radial-gradient(closest-side at 70% 30%, rgba(143,216,255,0.16), transparent)",
         }}
       />
     </div>,

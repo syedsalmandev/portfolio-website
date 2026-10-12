@@ -4,7 +4,7 @@ export const site = {
   role: "Full Stack Developer",
   title: "Syed Salman Ali | Full Stack Developer",
   description:
-    "Full Stack Developer building production web applications with React, Next.js, TypeScript, Node.js, NestJS and PostgreSQL — plus payment integrations and custom WordPress, WooCommerce and Shopify solutions.",
+    "Full Stack Developer building production web applications with React, Next.js, TypeScript, Node.js, NestJS and PostgreSQL, plus payment integrations and custom WordPress, WooCommerce and Shopify solutions.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   location: "Karachi, Pakistan",
   availability:

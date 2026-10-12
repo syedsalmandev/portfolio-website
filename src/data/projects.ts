@@ -66,8 +66,132 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "tabarukat-e-masomeen",
+    slug: "al-malik-motors",
     index: "01",
+    title: "Al Malik Motors",
+    category: "Dynamic Automotive Marketplace",
+    label: "Latest Project",
+    role: "Full Stack Developer",
+    status: "Live",
+    year: "2026",
+    liveUrl: "https://almalikmotors.com/",
+    tagline:
+      "A dealership platform with structured vehicle inventory, availability-based listings, search and vehicle-specific WhatsApp enquiries.",
+    summary:
+      "Built a dynamic dealership platform with structured vehicle inventory, reusable templates, availability-based listings, vehicle search, responsive layouts and centralized WhatsApp enquiries, designed to simplify day-to-day inventory management through a dashboard-driven content workflow.",
+    tags: [
+      "WordPress",
+      "Elementor Pro",
+      "JetEngine",
+      "Responsive Design",
+      "WhatsApp",
+      "Google Maps",
+    ],
+    screenshots: [],
+    mobileScreens: [],
+    overview: [
+      "Al Malik Motors is an automotive dealership website built to showcase available and sold vehicles through a centralized, dashboard-managed inventory system.",
+      "The business manages vehicle listings, specifications, pricing, availability, image galleries and featured inventory without rebuilding pages. Structured vehicle records and reusable templates power every inventory section on the site, from the homepage to individual vehicle pages.",
+    ],
+    challenge: [
+      "A dealership's inventory changes constantly: vehicles arrive, prices change and cars sell. With hardcoded listings, every change means editing several pages by hand, and sold vehicles risk lingering in the wrong places.",
+      "The site needed a single source of truth for each vehicle, rendering logic driven by availability, and enquiry actions that stay consistent across every listing, all manageable by the business without touching code.",
+    ],
+    myRole: [
+      "Full Stack Developer responsible for the end-to-end build: modelling the vehicle data structure, building reusable listing and single-vehicle templates, configuring availability-dependent rendering, search and filtering, WhatsApp and business integrations, media preparation and the responsive frontend.",
+    ],
+    solution: [
+      "Vehicles are modelled as structured records in WordPress using JetEngine custom fields and galleries. Those records feed archive pages, single-vehicle templates and homepage sections such as Featured Cars and Recently Sold, so a vehicle is updated once and reflected everywhere.",
+      "Availability status drives where a listing appears and which sales actions are shown, while a centralized contact setting keeps every WhatsApp enquiry link consistent and pre-filled with the specific vehicle.",
+    ],
+    implementation: [
+      {
+        title: "Structured Vehicle Data",
+        body: [
+          "Instead of hardcoded listings, the inventory is built around reusable vehicle records. Each record holds specifications, pricing, description, image gallery and availability status, and is connected to archive pages, individual vehicle pages and homepage inventory sections.",
+        ],
+        bullets: [
+          "JetEngine custom fields and galleries for vehicle records",
+          "One record rendered across archives, vehicle pages and homepage sections",
+          "WordPress as the CMS and application foundation",
+        ],
+      },
+      {
+        title: "Availability-Based Rendering",
+        body: [
+          "Vehicle status determines where a listing appears and which sales actions are displayed. Available and sold inventory are separated automatically, and the Featured Cars and Recently Sold sections populate dynamically from the same data.",
+        ],
+        bullets: [
+          "Separate available and sold inventory listings",
+          "Dynamically populated Featured Cars and Recently Sold sections",
+          "Sales actions shown or hidden based on availability",
+        ],
+      },
+      {
+        title: "Reusable Templates & Search",
+        body: [
+          "Shared listing templates and a consistent vehicle card pattern remove repetitive page-building and keep every listing visually consistent. Dynamic single-vehicle templates present specifications, galleries and enquiry actions, and visitors can search inventory by make and body type.",
+        ],
+        bullets: [
+          "Dynamic single-vehicle template",
+          "Shared vehicle card pattern",
+          "Search and filtering by make and body type",
+        ],
+      },
+      {
+        title: "Centralized Enquiries & Integrations",
+        body: [
+          "WhatsApp actions are connected to a single shared contact setting rather than separate phone links on each page, and every enquiry is pre-filled with a vehicle-specific message. The site also includes a contact form, Google Maps location, opening hours and social media links.",
+        ],
+      },
+      {
+        title: "Privacy-Aware Media",
+        body: [
+          "Vehicle photographs are processed into optimized WebP images, with visible registration plates blurred before publication.",
+        ],
+      },
+    ],
+    callout: {
+      title: "Dashboard-Driven Inventory",
+      body: [
+        "Routine inventory work, such as adding a vehicle, updating its price or gallery, featuring it or marking it as sold, happens entirely in the WordPress dashboard. The templates and availability logic take care of where and how each vehicle appears on the site.",
+      ],
+      bullets: [
+        "No code edits for day-to-day inventory updates",
+        "A vehicle is updated once and reflected across the site",
+        "Consistent presentation through shared templates",
+      ],
+    },
+    keyFeatures: [
+      "Dynamic vehicle management",
+      "Available and sold inventory",
+      "Featured Cars and Recently Sold sections",
+      "Reusable single-vehicle pages",
+      "Search by make and body type",
+      "Vehicle-specific WhatsApp enquiries",
+      "Centralized contact configuration",
+      "Contact form",
+      "Google Maps location and opening hours",
+      "Social media links",
+      "WebP image optimization",
+      "Registration plates blurred before publication",
+      "Dashboard-driven content management",
+      "Responsive desktop, tablet and mobile layouts",
+    ],
+    technology: [
+      "WordPress",
+      "Elementor Pro",
+      "JetEngine",
+      "Dynamic Content & Reusable Templates",
+      "Responsive Frontend Development",
+      "WebP Image Optimization",
+      "WhatsApp Integration",
+      "Google Maps Integration",
+    ],
+  },
+  {
+    slug: "tabarukat-e-masomeen",
+    index: "02",
     title: "Tabarukat E Masomeen AS",
     category: "Shopify Ecommerce",
     label: "Featured Ecommerce Project",
@@ -96,13 +220,13 @@ export const projects: Project[] = [
         src: tabarukatProducts,
         alt: "Products listing page with 1,020 products, view switcher and alphabetical sorting",
         caption:
-          "Catalog listing — 1,020+ products with layout switcher, sorting and collection filters",
+          "Catalog listing: 1,020+ products with layout switcher, sorting and collection filters",
       },
       {
         src: tabarukatCollections,
         alt: "Mega menu showing collection arrivals with product imagery and collection grid below",
         caption:
-          "Collection navigation — arrivals mega menu and collection architecture",
+          "Collection navigation: arrivals mega menu and collection architecture",
       },
     ],
     mobileScreens: [
@@ -110,12 +234,12 @@ export const projects: Project[] = [
         src: tabarukatMobile,
         alt: "Mobile view of the About Us page with hero banner, breadcrumb bar and journey copy",
         caption:
-          "Mobile — About page with breadcrumb bar and responsive typography",
+          "Mobile: About page with breadcrumb bar and responsive typography",
       },
     ],
     overview: [
       "Tabarukat E Masomeen AS is a Shopify storefront for a long-established brand with an unusually deep catalog: more than 1,020 products spread across dozens of collections, with frequent new arrivals and seasonal promotions.",
-      "The engagement covered theme customization, Liquid development and the full customer-facing shopping experience — from navigation and search through to accounts, wishlist, compare and checkout.",
+      "The engagement covered theme customization, Liquid development and the full customer-facing shopping experience, from navigation and search through to accounts, wishlist, compare and checkout.",
     ],
     challenge: [
       "A catalog of this size stresses every part of a storefront. Collection navigation has to stay understandable, product presentation has to remain consistent across very different product types, and the client needs to keep publishing new arrivals and promotions without waiting on a developer.",
@@ -126,7 +250,7 @@ export const projects: Project[] = [
       "Work was delivered directly against client requirements, with revisions, QA and post-launch fixes handled as part of the engagement.",
     ],
     solution: [
-      "The storefront was built on customized, reusable Shopify sections with schema-driven settings. Every recurring content block — hero banners, arrivals rows, image and video features, promotional strips — is a merchant-editable section rather than hard-coded markup.",
+      "The storefront was built on customized, reusable Shopify sections with schema-driven settings. Every recurring content block (hero banners, arrivals rows, image and video features, promotional strips) is a merchant-editable section rather than hard-coded markup.",
       "Collection architecture and mega-menu navigation were structured so customers can move through a large catalog quickly, supported by search, sorting, layout switching and consistent product cards with sale pricing.",
     ],
     implementation: [
@@ -155,7 +279,7 @@ export const projects: Project[] = [
       {
         title: "Merchant Editability",
         body: [
-          "Routine changes — swapping a hero image, adding a video feature, announcing a promotion or reordering collections — are handled entirely in the Shopify theme editor. No Liquid edits are needed for day-to-day content updates.",
+          "Routine changes, such as swapping a hero image, adding a video feature, announcing a promotion or reordering collections, are handled entirely in the Shopify theme editor. No Liquid edits are needed for day-to-day content updates.",
         ],
         bullets: [
           "Customizable image and video sections",
@@ -207,7 +331,7 @@ export const projects: Project[] = [
       title: "Built for Client Independence",
       body: [
         "Reusable Shopify sections and configurable settings allow the merchant to manage normal storefront content without editing Liquid code. Banners, arrivals, image and video features, promotions and newsletter capture are all composed and updated from the theme editor.",
-        "Developer involvement is reserved for genuinely new functionality — not for the routine updates a growing catalog demands every week.",
+        "Developer involvement is reserved for genuinely new functionality, not for the routine updates a growing catalog demands every week.",
       ],
       bullets: [
         "Schema-driven sections with clear, labelled settings",
@@ -218,7 +342,7 @@ export const projects: Project[] = [
   },
   {
     slug: "premium-domain-marketplace",
-    index: "02",
+    index: "03",
     title: "Confidential Premium Domain Marketplace",
     category: "Next.js Application",
     label: "In Development",
@@ -248,7 +372,7 @@ export const projects: Project[] = [
       "The project is currently in development. Screenshots are intentionally not shown; the visuals on this page are sanitized representations of the interface structure.",
     ],
     challenge: [
-      "The product has two distinct surfaces — a public marketing and discovery site and a private customer dashboard — that need to share a design language, a component library and state, while remaining maintainable as the feature set grows.",
+      "The product has two distinct surfaces, a public marketing and discovery site and a private customer dashboard, that need to share a design language, a component library and state, while remaining maintainable as the feature set grows.",
       "The production backend is not yet connected, so the dashboard had to be built in a way that lets the real data source be introduced later without rebuilding the screens.",
     ],
     myRole: [
@@ -263,7 +387,7 @@ export const projects: Project[] = [
       {
         title: "Modular Monolith Architecture",
         body: [
-          "Each feature — domains, auth, orders, payments, leasing, inquiries, notifications and settings — owns its components, hooks, types and data functions inside a dedicated module. Routes under src/app compose those modules, and src/components holds the shared design-system primitives.",
+          "Each feature (domains, auth, orders, payments, leasing, inquiries, notifications and settings) owns its components, hooks, types and data functions inside a dedicated module. Routes under src/app compose those modules, and src/components holds the shared design-system primitives.",
         ],
       },
       {
@@ -369,7 +493,7 @@ export const projects: Project[] = [
   },
   {
     slug: "alpha-international",
-    index: "03",
+    index: "04",
     title: "Alpha International",
     category: "WordPress / WooCommerce Ecommerce",
     role: "WordPress Developer",
@@ -390,7 +514,7 @@ export const projects: Project[] = [
         src: alphaInternational,
         alt: "Alpha International homepage with kitchen hero, category navigation and product section",
         caption:
-          "Homepage — category navigation, hero and featured product presentation",
+          "Homepage: category navigation, hero and featured product presentation",
       },
     ],
     mobileScreens: [],
@@ -434,7 +558,7 @@ export const projects: Project[] = [
   },
   {
     slug: "silverstein-songs",
-    index: "04",
+    index: "05",
     title: "Silverstein Songs",
     category: "WordPress / Media Platform",
     role: "WordPress Developer",
@@ -455,7 +579,7 @@ export const projects: Project[] = [
         src: silversteinSongs,
         alt: "Silverstein Songs homepage hero with portrait, headline and All Songs / Radio calls to action",
         caption:
-          "Homepage — full-bleed portrait, catalog entry points and radio",
+          "Homepage: full-bleed portrait, catalog entry points and radio",
       },
     ],
     mobileScreens: [],
@@ -506,7 +630,7 @@ export const projects: Project[] = [
   },
   {
     slug: "triple-promise",
-    index: "05",
+    index: "06",
     title: "Triple Promise",
     category: "WordPress / Education & Performing Arts",
     role: "WordPress Developer",
@@ -527,7 +651,7 @@ export const projects: Project[] = [
         src: triplePromise,
         alt: "Triple Promise shows page listing upcoming productions with poster, dates and venue",
         caption:
-          "Shows — production listings with dates, venue and ticket entry points",
+          "Shows: production listings with dates, venue and ticket entry points",
       },
     ],
     mobileScreens: [],
@@ -535,7 +659,7 @@ export const projects: Project[] = [
       "Triple Promise is a performing arts academy. The site promotes classes and productions, showcases student work through a gallery, and supports auditions, jobs and a blog alongside a mailing list.",
     ],
     challenge: [
-      "The academy publishes on a seasonal rhythm — new classes, shows and audition calls — so content areas had to be simple for staff to update while keeping a vibrant, on-brand presentation.",
+      "The academy publishes on a seasonal rhythm of new classes, shows and audition calls, so content areas had to be simple for staff to update while keeping a vibrant, on-brand presentation.",
     ],
     myRole: [
       "WordPress developer for page templates, content structure, mailing-list integration and responsive implementation.",
@@ -572,7 +696,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sherman-medical",
-    index: "06",
+    index: "07",
     title: "Sherman Medical",
     category: "WordPress / Healthcare",
     role: "WordPress Developer",
@@ -593,12 +717,12 @@ export const projects: Project[] = [
         src: shermanMedical,
         alt: "Sherman Medical homepage with service headline, pricing highlights, call button and hours / visit / call tiles",
         caption:
-          "Homepage — service messaging, hours strip and call-to-action tiles",
+          "Homepage: service messaging, hours strip and call-to-action tiles",
       },
     ],
     mobileScreens: [],
     overview: [
-      "Sherman Medical is a walk-in clinic in Sherman, Texas. The site is built to answer the questions patients arrive with — what services are offered, when the clinic is open, where it is and how to call.",
+      "Sherman Medical is a walk-in clinic in Sherman, Texas. The site is built to answer the questions patients arrive with: what services are offered, when the clinic is open, where it is and how to call.",
     ],
     challenge: [
       "Healthcare visitors are frequently on mobile and in a hurry. Services, hours, location and phone had to be immediately visible and tappable without clutter.",
@@ -637,7 +761,7 @@ export const projects: Project[] = [
   },
   {
     slug: "logiciel-services",
-    index: "07",
+    index: "08",
     title: "Logiciel Services",
     category: "WordPress / Corporate Technology",
     role: "WordPress Developer",
@@ -658,7 +782,7 @@ export const projects: Project[] = [
         src: logicielServices,
         alt: "Logiciel Services homepage hero with large headline, supporting copy and layered image composition",
         caption:
-          "Homepage — editorial hero, company positioning and navigation",
+          "Homepage: editorial hero, company positioning and navigation",
       },
     ],
     mobileScreens: [],
@@ -695,8 +819,8 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredProjects = projects.slice(0, 2);
-export const secondaryProjects = projects.slice(2);
+export const featuredProjects = projects.slice(0, 3);
+export const secondaryProjects = projects.slice(3);
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

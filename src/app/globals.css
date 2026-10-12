@@ -1,15 +1,43 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens: dark midnight glass.
+ * Token names are semantic and predate the dark theme:
+ *   paper = page surface, ink = primary text, line = hairline borders.
+ */
 @theme {
-  --color-paper: #f7f6f3;
-  --color-paper-2: #efede8;
-  --color-ink: #121212;
-  --color-ink-2: #2a2a2a;
-  --color-muted: #6b6b6b;
-  --color-line: #e3e1dc;
-  --color-line-strong: #cfccc5;
-  --color-accent: #c2410c;
-  --color-accent-soft: #fbe9e0;
+  /* Surfaces */
+  --color-paper: #07090f;
+  --color-paper-2: #0d1220;
+  --color-midnight: #0a1120;
+
+  /* Text hierarchy */
+  --color-ink: #edf1f7;
+  --color-ink-2: #c3cad6;
+  --color-muted: #8b95a8;
+
+  /* Borders */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  /* Accent: icy cyan light */
+  --color-accent: #8fd8ff;
+  --color-accent-soft: rgb(143 216 255 / 0.1);
+
+  /* Glass surfaces */
+  --color-glass: rgb(255 255 255 / 0.035);
+  --color-glass-strong: rgb(255 255 255 / 0.06);
+
+  --shadow-glass:
+    inset 0 1px 0 rgb(255 255 255 / 0.06), 0 30px 80px -40px rgb(0 0 0 / 0.8);
+  --shadow-lift:
+    inset 0 1px 0 rgb(255 255 255 / 0.08), 0 40px 100px -40px rgb(0 0 0 / 0.9),
+    0 0 0 1px rgb(143 216 255 / 0.08);
+
+  --blur-glass: 18px;
+
+  --radius-panel: 1.5rem;
+  --radius-frame: 0.875rem;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
@@ -18,17 +46,18 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --default-transition-duration: 300ms;
 
   --breakpoint-xs: 30rem;
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 6rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -44,12 +73,29 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/*
+ * Page lighting: a cool key light from the top right and a deep blue fill
+ * on the left, fading into charcoal. Static, so it costs nothing on scroll.
+ */
 body {
-  background: var(--color-paper);
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(
+      70rem 42rem at 78% -12rem,
+      rgb(143 216 255 / 0.11),
+      transparent 70%
+    ),
+    radial-gradient(
+      60rem 50rem at -10% 10rem,
+      rgb(37 64 140 / 0.22),
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--color-midnight) 0, var(--color-paper) 60rem);
+  background-repeat: no-repeat;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01", "ss03";
@@ -60,14 +106,14 @@ body {
 }
 
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: rgb(143 216 255 / 0.3);
+  color: var(--color-ink);
 }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* ---------- Utilities ---------- */
@@ -89,11 +135,12 @@ body {
   }
 }
 
+/* Section and field labels: quiet sentence-case text rather than tiny caps */
 @utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
   color: var(--color-muted);
 }
 
@@ -116,6 +163,29 @@ body {
   border-color: var(--color-line);
 }
 
+/*
+ * Glass surface without backdrop blur. Used for panels that sit on the page
+ * background, where blur would add GPU cost without any visible benefit.
+ */
+@utility glass {
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.055),
+    rgb(255 255 255 / 0.018)
+  );
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Blurred glass for surfaces that float over moving content (header, menu). */
+@utility glass-blur {
+  background: rgb(10 14 24 / 0.66);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-glass);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(150%);
+  backdrop-filter: blur(var(--blur-glass)) saturate(150%);
+}
+
 @utility link-underline {
   position: relative;
   &::after {
@@ -136,16 +206,32 @@ body {
   }
 }
 
-/* Screenshot frame with a soft window chrome feel */
+/* Screenshot frame: a dark glass window with a fine top highlight */
 @utility screen-frame {
   position: relative;
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-frame);
   background: var(--color-paper-2);
   box-shadow:
-    0 0 0 1px rgba(18, 18, 18, 0.06),
-    0 1px 2px rgba(18, 18, 18, 0.04),
-    0 24px 60px -24px rgba(18, 18, 18, 0.25);
+    0 0 0 1px rgb(255 255 255 / 0.09),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 30px 70px -30px rgb(0 0 0 / 0.85);
+}
+/*
+ * Scroll reveal (see components/ui/Reveal.tsx). Only transform and opacity
+ * change, so nothing shifts layout. The hidden state needs JS (`html.js`) and
+ * a visitor who allows motion; otherwise content is simply visible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition:
+      opacity 600ms var(--ease-out-quart) var(--reveal-delay, 0ms),
+      transform 600ms var(--ease-out-quart) var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
 }
 
 /* Prevent layout shift for images that fill aspect boxes */
@@ -153,12 +239,3 @@ img {
   height: auto;
 }
 
-/* ---------- Keyframes ---------- */
-@keyframes drift {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-4rem, 3rem, 0);
-  }
-}

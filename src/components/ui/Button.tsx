@@ -12,14 +12,14 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-ink text-paper border border-ink hover:bg-ink-2 hover:border-ink-2",
+    "bg-ink text-paper border border-ink shadow-[0_10px_40px_-12px_rgba(143,216,255,0.45)] hover:bg-white hover:border-white",
   secondary:
-    "bg-transparent text-ink border border-line-strong hover:border-ink hover:bg-ink hover:text-paper",
-  ghost: "bg-transparent text-ink border border-transparent hover:bg-paper-2",
+    "glass text-ink hover:border-line-strong hover:bg-glass-strong",
+  ghost: "bg-transparent text-ink border border-transparent hover:bg-glass",
   inverted:
-    "bg-paper text-ink border border-paper hover:bg-paper-2 hover:border-paper-2",
+    "bg-ink text-paper border border-ink hover:bg-white hover:border-white",
   "outline-inverted":
-    "bg-transparent text-paper border border-white/25 hover:border-paper hover:bg-paper hover:text-ink",
+    "bg-transparent text-ink border border-line-strong hover:border-ink/40 hover:bg-glass",
 };
 
 const sizes: Record<Size, string> = {

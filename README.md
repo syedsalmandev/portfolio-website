@@ -1,6 +1,6 @@
 # Syed Salman Ali — Portfolio
 
-Personal portfolio for **Syed Salman Ali, CMS & Full Stack Developer** (Karachi, Pakistan).
+Personal portfolio for **Syed Salman Ali, Full Stack Developer** (Karachi, Pakistan).
 
 Built with Next.js (App Router), TypeScript, Tailwind CSS v4 and Motion. Fully static — no database or backend.
 
